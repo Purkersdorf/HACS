@@ -29,7 +29,6 @@ class HacsCategory(StrEnum):
     INTEGRATION = "integration"
     LOVELACE = "lovelace"
     PLUGIN = "plugin"  # Kept for legacy purposes
-    NETDAEMON = "netdaemon"
     PYTHON_SCRIPT = "python_script"
     TEMPLATE = "template"
     THEME = "theme"

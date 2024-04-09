@@ -28,7 +28,7 @@ from ..exceptions import (
     HacsRepositoryExistException,
 )
 from ..types import DownloadableContent
-from ..utils.backup import Backup, BackupNetDaemon
+from ..utils.backup import Backup
 from ..utils.decode import decode_content
 from ..utils.decorator import concurrent
 from ..utils.filters import filter_content_return_one_of_type
@@ -84,7 +84,6 @@ TOPIC_FILTER = (
     "lovelace",
     "media-player",
     "mediaplayer",
-    "netdaemon",
     "plugin",
     "python_script",
     "python-script",
@@ -174,7 +173,7 @@ class RepositoryData:
     @property
     def name(self):
         """Return the name."""
-        if self.category in ["integration", "netdaemon"]:
+        if self.category == "integration":
             return self.domain
         return self.full_name.split("/")[-1]
 
@@ -937,11 +936,7 @@ class HacsRepository:
             {"repository": self.data.full_name, "progress": 40},
         )
 
-        if self.data.installed and self.data.category == "netdaemon":
-            persistent_directory = BackupNetDaemon(hacs=self.hacs, repository=self)
-            await self.hacs.hass.async_add_executor_job(persistent_directory.create)
-
-        elif self.repository_manifest.persistent_directory:
+        if self.repository_manifest.persistent_directory:
             if os.path.exists(
                 f"{self.content.path.local}/{self.repository_manifest.persistent_directory}"
             ):

@@ -11,7 +11,6 @@ SIDEPANEL_ICON = "sidepanel_icon"
 FRONTEND_REPO = "frontend_repo"
 FRONTEND_REPO_URL = "frontend_repo_url"
 APPDAEMON = "appdaemon"
-NETDAEMON = "netdaemon"
 
 # Options:
 COUNTRY = "country"
@@ -42,7 +41,6 @@ def hacs_config_option_schema(options: dict = {}) -> dict:
             COUNTRY: "ALL",
             DEBUG: False,
             EXPERIMENTAL: False,
-            NETDAEMON: False,
             RELEASE_LIMIT: 5,
             SIDEPANEL_ICON: "hacs:hacs",
             SIDEPANEL_TITLE: "HACS",
@@ -55,7 +53,6 @@ def hacs_config_option_schema(options: dict = {}) -> dict:
         vol.Optional(RELEASE_LIMIT, default=options.get(RELEASE_LIMIT)): int,
         vol.Optional(COUNTRY, default=options.get(COUNTRY)): vol.In(LOCALE),
         vol.Optional(APPDAEMON, default=options.get(APPDAEMON)): bool,
-        vol.Optional(NETDAEMON, default=options.get(NETDAEMON)): bool,
         vol.Optional(DEBUG, default=options.get(DEBUG)): bool,
         vol.Optional(EXPERIMENTAL, default=options.get(EXPERIMENTAL)): bool,
         vol.Exclusive(FRONTEND_REPO, PATH_OR_URL): str,
